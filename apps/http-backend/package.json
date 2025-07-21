@@ -7,12 +7,13 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc -b",
     "start": "node ./dist/index.js",
-    "dev": "pnpm run build && pnpm run start"
+    "dev": "tsx src/index.ts && pnpm run start"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@repo/db": "workspace:*",
     "@types/express": "^5.0.3",
     "@types/jsonwebtoken": "^9.0.10",
     "dotenv": "^17.2.0",
@@ -23,6 +24,7 @@
   "devDependencies": {
     "@repo/backend-common": "workspace:*",
     "@repo/common": "workspace:*",
-    "@repo/typescript-config": "workspace:*"
+    "@repo/typescript-config": "workspace:*",
+    "tsx": "^4.20.3"
   }
 }
