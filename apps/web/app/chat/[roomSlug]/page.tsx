@@ -25,7 +25,8 @@ async function getChatMessages(roomSlug:string) {
     const chatMessagesResponse = await fetch(`http://localhost:3000/chat/${roomSlug}`,  {
         method: "GET",
         headers: {
-            "Authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI1NjIxOGJlNy00NjNmLTRiMDQtODFlYy1jNzZhYTAxOTliMjUiLCJpYXQiOjE3NTM0NTYzMTN9.8dvRNJdYw6MwaLVbK3JJz-SM3140AFOjvTwwwcaxEjk",
+            // "Authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI1NjIxOGJlNy00NjNmLTRiMDQtODFlYy1jNzZhYTAxOTliMjUiLCJpYXQiOjE3NTM0NTYzMTN9.8dvRNJdYw6MwaLVbK3JJz-SM3140AFOjvTwwwcaxEjk",
+           "Authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiIxMzFhM2U2YS0zNjc3LTRjZTEtYjc0NS1lYTNjN2RiZDkyZmYiLCJpYXQiOjE3NTM0Njg4NzN9.VNfnErN-Ajey4PFVBMMEWU8Zci4P2IS5Cgat_7gynps"
         }
     })
     const data:Data = await chatMessagesResponse.json();

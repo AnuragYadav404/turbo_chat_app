@@ -46,6 +46,7 @@ function getUserID(url: string): string | null {
                 return null 
             }
         if(!decoded || !(decoded as JwtPayload).userID) {
+            console.log("Failed to authenticate request")
             return null
         }
         return decoded.userID
