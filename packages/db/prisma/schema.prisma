@@ -20,22 +20,19 @@ model User {
   hashedPassword    String  
   username          String?  
   avatarURL         String?
-  ChatMessages      ChatMessage[]
   Chats             ChatRoom[]
 }
 
 model ChatMessage {
   messageID         Int       @id   @unique   @default(autoincrement())
-  message           String
-  userID            String
-  chatRooomID       String
-  admin             User     @relation(fields: [userID], references: [userID])
-  chatRoom          ChatRoom     @relation(fields: [chatRooomID], references: [roomID])
+  message           Json
+  chatRooomSlug     String    @unique
+  chatRoom          ChatRoom     @relation(fields: [chatRooomSlug], references: [roomSlug])
 }
 
 model ChatRoom {
   roomID           String      @id     @unique     @default(uuid())
-  slug             String      @unique
+  roomSlug         String      @unique
   createdAt        DateTime          @default(now())
   adminID          String
   admin            User       @relation(fields: [adminID], references: [userID])

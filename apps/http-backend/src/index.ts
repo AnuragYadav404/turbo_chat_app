@@ -118,13 +118,13 @@ app.post("/create-room", authMiddleware, async(req, res) => {
     const chatRoom = await prisma.chatRoom.create({
         data: {
             adminID: req.userID,
-            slug: parsedData.data.slug
+            roomSlug: parsedData.data.slug
         }
     })
 
     res.status(200).json({
         message: "Room created succesfully",
-        slug: chatRoom.slug
+        slug: chatRoom.roomSlug
     })
     return;
 
@@ -139,27 +139,13 @@ app.get("/chat/:roomSlug", authMiddleware,async (req, res) => {
     // chatMessges
     // join operation or two DB calls
     try{
-        const room = await prisma.chatRoom.findFirst({
-            where:{
-                slug:roomSlug
-            }
-        })
-        if(!room) {
-            res.status(400).json({
-                message: "No such room exists",
-            })
-            return
-        }
+        
         // now given we have roomID, we need to find the messages
 
-        const roomMessages = await prisma.chatMessage.findMany({
+        const roomMessages = await prisma.chatMessage.findFirst({
             where: {
-                chatRooomID: room.roomID
-            },
-            orderBy: {
-                messageID: "desc"
-            },
-            take:25
+                chatRooomSlug: roomSlug
+            }
         })
 
         res.status(200).json({
