@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react"
 import { GameLogicClass } from "../game/logic";
 
 interface Stroke {
@@ -12,10 +12,9 @@ interface Stroke {
 type Line = Stroke[];
 type Shapes = Line[];
 
-export function HandEraserCanvas(props: {roomSlug: string, messages: Shapes, socket:WebSocket, loading:boolean}) {
+export function HandEraserCanvas(props: {roomSlug: string, messages: Shapes, socket:WebSocket, loading:boolean, setMessages: Dispatch<SetStateAction<Shapes>>}) {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const [currentTool, setCurrentTool] = useState("select");
-    const [messages, setMessages] = useState(props.messages)
 
     // we need to pass all these messages down to useEffect, and also maintain these in a state?
     // here we connect to socket or we connect at parent layer
@@ -26,12 +25,13 @@ export function HandEraserCanvas(props: {roomSlug: string, messages: Shapes, soc
         if(!canvas) return;
         const ctx = canvas?.getContext("2d");
         if(!ctx) return;
-        const game = new GameLogicClass(canvas, ctx, currentTool, props.socket, props.roomSlug, messages, setMessages);
+        // console.log("Useffect message:", props.messages);
+        const game = new GameLogicClass(canvas, ctx, currentTool, props.socket, props.roomSlug, props.messages,  props.setMessages);
         return () => {
             game.destroy();    
         }
         
-    }, [currentTool,props.roomSlug, messages, setMessages, props.socket, props.loading])
+    }, [currentTool,props.roomSlug, props.messages, props.setMessages, props.socket, props.loading])
 
 
     return (

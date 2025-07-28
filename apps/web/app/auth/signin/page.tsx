@@ -6,7 +6,7 @@ import { useState } from "react"
 
 // will be a client component
 // will send requests to HTTP backend directly
-export default function Signup() {
+export default function Signin() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const router = useRouter();
@@ -20,13 +20,24 @@ export default function Signup() {
         // endpoint: 
         if(email && password) {
             try{
-                const response = await axios.post("http://localhost:3000/signup", {
+                const response = await axios.post("http://localhost:3000/signin", {
                     email: email,
                     password: password,
                 })
-                if(response.status ==200) {
-                    router.push("/auth/signin")
-                }
+
+                    if(response.status ==200) {
+                        console.log(response);
+                        if(response.data.token) {
+                            localStorage.setItem("token", response.data.token)
+                            router.push("/")
+                        }else {
+                            if(response.data.message) {
+                                alert(response.data.message)
+                            }else {
+                                alert("Failed to signup ")
+                            }
+                        }
+                    }
             }
             catch(e) {
                 console.log(e)
@@ -39,7 +50,7 @@ export default function Signup() {
         <div>
             <input type="text" placeholder="Enter email" required={true} value={email} onChange={(e) => setEmail(e.target.value)}/>
             <input type="text" placeholder="Enter email" required={true} value={password} onChange={(e) => setPassword(e.target.value)}/>
-            <button onClick={handleSignUpSubmit}>Sign up</button>
+            <button onClick={handleSignUpSubmit}>Sign In</button>
         </div>
     )
 }

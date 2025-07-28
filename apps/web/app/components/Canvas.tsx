@@ -1,5 +1,5 @@
 "use client"
-import { useEffect } from "react";
+import { Dispatch, SetStateAction, useEffect } from "react";
 import { useSocket } from "../hooks/useSocket";
 import { HandEraserCanvas } from "./HandEraserCanvas";
 
@@ -17,7 +17,7 @@ interface Stroke {
 type Line = Stroke[];
 type Shapes = Line[];
 
-export function Canvas(props: {roomSlug: string, messages: Shapes}) {
+export function Canvas(props: {roomSlug: string, messages: Shapes, setMessages: Dispatch<SetStateAction<Shapes>>}) {
     const {socket, loading} = useSocket();
 
     useEffect(() => {
@@ -27,6 +27,7 @@ export function Canvas(props: {roomSlug: string, messages: Shapes}) {
                 type: "join_room",
                 roomSlug: props.roomSlug
             }))
+
         }
             
         return () => {
@@ -41,7 +42,7 @@ export function Canvas(props: {roomSlug: string, messages: Shapes}) {
     return (
         <div>
             {(!loading&&socket) && (<div>
-                <HandEraserCanvas roomSlug={props.roomSlug} messages={props.messages} socket={socket} loading={loading}/>
+                <HandEraserCanvas roomSlug={props.roomSlug} messages={props.messages} setMessages={props.setMessages} socket={socket} loading={loading}/>
             </div>)}
         </div>
     )

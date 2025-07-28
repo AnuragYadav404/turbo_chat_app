@@ -8,7 +8,14 @@ export default function Page() {
 
   function handleJoinRoomSubmit() {
     // alert(input)
-    router.push(`/chat/${input}`)
+    // here we check whether client is allowed to join room
+    // simple check -> check if user is authenticated
+    if(localStorage.getItem("token")) {
+      router.push(`/chat/${input}`)
+    }else {
+      router.push("/auth/signup")
+    }
+    
   }
   return (
     <main>

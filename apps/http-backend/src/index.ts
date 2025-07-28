@@ -5,10 +5,11 @@ import { authMiddleware } from "./middlewares/authMiddleware";
 import {getJwtSecret} from "@repo/backend-common/jwt_secret"
 import 'dotenv/config';
 import {prisma} from "@repo/db/client"
+import cors from "cors";
 
 const app = express();
 app.use(express.json())
-
+app.use(cors())
 app.post("/signup", async (req, res) => {
     console.log(req.body)
     //zod validation
