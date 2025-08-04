@@ -1,1 +1,1 @@
-{"root":["./src/index.ts","./types/ws/index.d.ts"],"version":"5.8.3"}
+{"root":["./src/index.ts","./src/roommapclient/singleton.ts","./src/types/customtypes.ts","./types/ws/index.d.ts"],"version":"5.8.3"}
