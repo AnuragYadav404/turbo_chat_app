@@ -1,5 +1,11 @@
 import { WebSocket } from "ws";
 
+export enum SupportedMessages {
+    JoinRoom = "join_room",
+    ChatMessage = "chat_message",
+    ExitRoom = "exit_room",
+}
+
 export interface SocketMessage {
     type: string,
     roomSlug: string,
